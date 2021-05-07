@@ -17,6 +17,7 @@
 .calculation {
   background: beige;
   height: 25px;
+  display: flex;
 }
 
 .cells-content {
@@ -82,6 +83,16 @@
 }
 .cells {
   position: absolute;
-  top: 0px;
+  top: 20px;
   left: 20px;
+}
+#address {
+  width: 50px;
+  text-align: center;
+}
+#formula {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 5px;
 }
