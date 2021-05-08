@@ -28,7 +28,8 @@
 }
 
 .sheets {
-  background: cornflowerblue;
+  font-family: "Lato", sans-serif;
+  display: flex;
   height: 25px;
 }
 
@@ -95,4 +96,31 @@
   border: none;
   width: 100%;
   padding: 5px;
+}
+.add-sheet {
+  display: flex;
+  width: 30px;
+  height: 100%;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  color: lightgreen;
+  border-right: 1px solid lightgrey;
+}
+
+.sheets-list {
+  display: flex;
+  /* justify-content: space-between; */
+  height: 100%;
+}
+
+.sheet {
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid gray;
+  cursor: pointer;
+  background: lightgrey;
+  color: black;
 }
