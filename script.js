@@ -58,8 +58,20 @@ for(let i=0;i<allCells.length;i++){
 formulaInput.addEventListener("blur",function(e){
     let formula=formulaInput.value;
     if(formula && lastSelectedCell){//check if formula is not null and if no cell is selected
-        console.log(formula);    
+           
         let cellObject=db[rowId][colId];//it will help to setchildren ,As B1 depend upon A1,A2.
+       //formula not null but exsiting formula has been changed
+       //formula To formula
+       //orignal formula (A1+A2)
+       //now   formula (A1 * 10)
+       //B1 must delete A2 from its parents 
+       //A2 must delete B1 from its child
+         if(cellObject.formula!=formula){
+            if(cellObject.formula){
+                deleteFormula(cellObject);
+            }
+        }
+        
         //A1 will hae B1 as children simlarly A2 too have B1 as children      
         let solvedValue=solveFormula(formula,cellObject);
                   //set UI
