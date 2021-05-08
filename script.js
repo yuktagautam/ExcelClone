@@ -30,15 +30,18 @@ cells.addEventListener("click",function(e){
     formulaInput.value=cellObject.formula;//if any cell have relation on it than formulainput will display that formula
 })
 //updating lastSelectedCell and assigned value to clicked cell
+//A1->10 ,A2->20 ,B1->30 ,B1.formula="( A1 + A2 )"  orginally
 for(let i=0;i<allCells.length;i++){
+
     allCells[i].addEventListener("blur",function(e){
         let currentElement=e.target;
         lastSelectedCell=currentElement;
         let value=currentElement.textContent;
         let cellObject=db[rowId][colId];
+        //true if A1->A1 value has been Changed
         if(value!=cellObject.value){//is user change the prev cell value or write first time in that cell
             cellObject.value=value;
-            
+            updateChildren(cellObject);//if change cell value ,and other cell depend on this cell,then that other cell value must be updated   
         }
     })
 }
@@ -47,12 +50,14 @@ for(let i=0;i<allCells.length;i++){
 formulaInput.addEventListener("blur",function(e){
     let formula=formulaInput.value;
     if(formula && lastSelectedCell){//check if formula is not null and if no cell is selected
-        console.log(formula);          
-        let solvedValue=solveFormula(formula);
+        console.log(formula);    
+        let cellObject=db[rowId][colId];//it will help to setchildren ,As B1 depend upon A1,A2.
+        //A1 will hae B1 as children simlarly A2 too have B1 as children      
+        let solvedValue=solveFormula(formula,cellObject);
                   //set UI
                   lastSelectedCell.textContent=solvedValue;
                   //set DB
-                  let cellObject=db[rowId][colId];
+                  
                   cellObject.value=solvedValue;
                   cellObject.formula=formula;
     }
