@@ -43,7 +43,8 @@ function initDB(){
                 name:address,
                 value:"",
                 formula:"",
-                children:[]
+                children:[],
+                parents:[]
             }
             row.push(cellObject);
         }

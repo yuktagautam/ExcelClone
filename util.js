@@ -13,6 +13,7 @@ function solveFormula(formula,selfCellObject){
     let cellObject=db[rowId][colId];     
     if(selfCellObject){
              cellObject.children.push(selfCellObject.name);
+             selfCellObject.parents.push(fComp);
      }
          
          let value=cellObject.value;
@@ -25,7 +26,6 @@ function solveFormula(formula,selfCellObject){
  let value=eval(formula);//10+20-->30
  return value;
 }
-
 function getRowIdColIdFromAddress(address){
     //C1
     //C =>colId => 2
@@ -51,4 +51,35 @@ function updateChildren(cellObject){
         document.querySelector(`div[rowid="${rowId}"][colid="${colId}"]`).textContent=newValue;
         updateChildren(childrenCellObject);//for children of children //recursive  
     }
+}
+function deleteFormula(cellObject){
+   //before
+    // {
+    //     name:"B1",
+    //      value:30,
+    //     formula:"A1+A2",
+    //     children:["C1"],
+    //     parents:["A1","A2"]
+    // }
+    //after user update of valu:30 -->to let say -->value:1000
+
+    cellObject.formula=""; //empty the formula whose value has been changed
+    for(let i=0;i<cellObject.parents.length;i++){
+          let parentName=cellObject.parents[i];   //formula:""
+          let {rowId,colId}=getRowIdColIdFromAddress(parentName);
+          let parentCellObject=db[rowId][colId];
+          let filteredChildren=parentCellObject.children.filter(child=>{   //deleting "B1" in A1 children,similarly for A2
+            return child!=cellObject.name;
+          });
+          parentCellObject.children=filteredChildren;
+    }
+    cellObject.parents=[];//empty parents
+    //after
+    // {
+    //     name:"B1",
+    //      value:1000,
+    //     formula:"",
+    //     children:["C1"],
+    //     parents:[]
+    // }
 }

@@ -40,6 +40,14 @@ for(let i=0;i<allCells.length;i++){
         let cellObject=db[rowId][colId];
         //true if A1->A1 value has been Changed
         if(value!=cellObject.value){//is user change the prev cell value or write first time in that cell
+            //Formula to Value
+            //Formula is not null
+            //Suppose B1 already depend upon A1+A2
+            //but now user change it's value ,suppose 1000
+            //Now it will not depend upon any cell
+            if(cellObject.formula){
+               deleteFormula(cellObject);
+            }
             cellObject.value=value;
             updateChildren(cellObject);//if change cell value ,and other cell depend on this cell,then that other cell value must be updated   
         }
