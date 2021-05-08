@@ -60,6 +60,11 @@ formulaInput.addEventListener("blur",function(e){
                   
                   cellObject.value=solvedValue;
                   cellObject.formula=formula;
+                   //value to formula----
+                  //Suppose C1 is dependent on A1 + A2 +B1
+                  //now we change B1 formula to A1* A2 
+                  //as B1 value will change will further change C1 value 
+                  updateChildren(cellObject);
     }
 })
 
