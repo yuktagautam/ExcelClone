@@ -16,7 +16,7 @@ cellsContentHtml+=`</div>`;
 //left col
 cellsContentHtml+=`<div class="left-col">`;
 for(let i=0;i<100;i++){
-    cellsContentHtml+=`<div class="left-col-cell">${i+1}</div>`;
+    cellsContentHtml+=`<div class="left-col-cell" cell-id = "${i}">${i+1}</div>`;
 }
 cellsContentHtml+=`</div>`;
 //All cells

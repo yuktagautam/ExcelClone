@@ -52,6 +52,13 @@ for(let i=0;i<allCells.length;i++){
             updateChildren(cellObject);//if change cell value ,and other cell depend on this cell,then that other cell value must be updated   
         }
     })
+    allCells[i].addEventListener("keyup",function(e){
+        let {height}=e.target.getBoundingClientRect();
+        let rowId=e.target.getAttribute("rowid");
+        let leftColCell = document.querySelector(`div[cell-id="${rowId}"]`);
+        leftColCell.style.height=height+"px";
+    })
+    
 }
 
 //setting formula solvedValue and formulas in UI AND DB
