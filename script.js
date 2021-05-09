@@ -6,6 +6,7 @@ let cells=document.querySelector(".cells");
 let addressInput=document.querySelector("#address");
 let formulaInput=document.querySelector("#formula");
 let allCells=document.querySelectorAll(".cell");
+
 cellsContent.addEventListener("scroll",function(e){
     let top=e.target.scrollTop;
     let left=e.target.scrollLeft;
@@ -28,6 +29,7 @@ cells.addEventListener("click",function(e){
     let cellObject=db[rowId][colId];//finding object
     addressInput.value=address;//D8 //name of cell clicked
     formulaInput.value=cellObject.formula;//if any cell have relation on it than formulainput will display that formula
+    setMenu(cellObject);
 })
 //updating lastSelectedCell and assigned value to clicked cell
 //A1->10 ,A2->20 ,B1->30 ,B1.formula="( A1 + A2 )"  orginally

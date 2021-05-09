@@ -45,7 +45,9 @@ function initDB(){
                 value:"",
                 formula:"",
                 children:[],
-                parents:[]
+                parents:[],
+                fontStyle:{bold:false,italic:false,underline:false},
+                testAlign:"left" //default
             }
             row.push(cellObject);
         }

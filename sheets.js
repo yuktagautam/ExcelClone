@@ -1,5 +1,6 @@
 let addSheet=document.querySelector(".add-sheet");
 let sheetsList=document.querySelector(".sheets-list");
+
 let sheetId=0;
 addSheet.addEventListener("click",handleAddSheet);
 sheetsList.addEventListener("click",handleSheetSwitch);
@@ -13,8 +14,12 @@ function handleAddSheet(e){
     sheet.setAttribute("sid",sheetId);
     sheet.textContent=`Sheet ${sheetId+1}`;
     sheetsList.append(sheet);
+    
+
     //init DB
     initDB();
+    //making menu icons default for new sheet
+    initMenu();
     //init UI
     initUI();
 }
