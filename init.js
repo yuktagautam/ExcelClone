@@ -32,9 +32,10 @@ cellsContentHtml+=`</div>`
 cellsContent.innerHTML=cellsContentHtml;
 })();
 
-let db=[];
+let sheetsDB=[];
+let db;//point to  database of current sheet //that's why kept global
 function initDB(){
-    
+    let newDB=[];
     for(let i=0;i<100;i++){
         let row=[];
         for(let j=0;j<26;j++){
@@ -48,8 +49,11 @@ function initDB(){
             }
             row.push(cellObject);
         }
-        db.push(row);
+        newDB.push(row);
         console.log(db);
     }
+    db=newDB;
+    sheetsDB.push(newDB);
+    
 }
 initDB();
