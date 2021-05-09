@@ -4,31 +4,21 @@
   padding: 0px;
 }
 
-.menu {
-  background: aqua;
-  height: 25px;
-}
-
-.menu-options {
-  background: aquamarine;
-  height: 35px;
-}
-
 .calculation {
   background: beige;
   height: 25px;
   display: flex;
+  border-bottom: 1px solid lightgrey;
 }
 
 .cells-content {
-  /* background: mediumpurple; */
   height: calc(100vh - 110px);
   overflow: auto;
   position: relative;
 }
 
 .sheets {
-  font-family: "Lato", sans-serif;
+  font-family: Lato, sans-serif;
   display: flex;
   height: 25px;
 }
@@ -36,22 +26,23 @@
 .row {
   display: flex;
 }
+
 .left-col {
   position: absolute;
   top: 20px;
   background-color: white;
   z-index: 1;
 }
+
 .cell {
-  /* border: 1px solid lightgray; */
   min-height: 20px;
   min-width: 70px;
-  outline: none;
   border-bottom: 1px solid lightgray;
   border-right: 1px solid lightgray;
   outline: none;
   max-width: 70px;
 }
+
 .top-left-cell {
   position: absolute;
   background-color: lightgrey;
@@ -68,6 +59,7 @@
   left: 20px;
   background-color: white;
 }
+
 .top-row-cell {
   min-height: 20px;
   min-width: 70px;
@@ -83,21 +75,26 @@
   border-bottom: 1px solid lightgrey;
   border-right: 1px solid lightgrey;
 }
+
 .cells {
   position: absolute;
   top: 20px;
   left: 20px;
 }
+
 #address {
   width: 50px;
   text-align: center;
+  border: none;
 }
+
 #formula {
   outline: none;
   border: none;
   width: 100%;
   padding: 5px;
 }
+
 .add-sheet {
   display: flex;
   width: 30px;
@@ -111,7 +108,6 @@
 
 .sheets-list {
   display: flex;
-  /* justify-content: space-between; */
   height: 100%;
 }
 
@@ -125,6 +121,37 @@
   background: lightgrey;
   color: black;
 }
+
 .active-sheet {
   background-color: white;
+}
+
+.menu-options {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid lightgray;
+}
+
+.menu-options > div {
+  display: flex;
+  align-items: center;
+  height: 70%;
+  width: 150px;
+  justify-content: space-evenly;
+  border-right: 1px solid lightgray;
+}
+
+.menu-options div div {
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.menu-options div div:hover {
+  background: lightgray;
+  opacity: 0.7;
 }
