@@ -181,3 +181,7 @@
   font-size: 13px;
   background: #ecedec;
 }
+
+.borderCell {
+  border: 0.1px solid #00800091;
+}

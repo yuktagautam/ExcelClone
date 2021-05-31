@@ -21,9 +21,17 @@ let colId;
 let lastSelectedCell;//cell in which the formula applied
 
 
+
 //Update the name of clicked cell in topleftCell
 cells.addEventListener("click",function(e){
     let currentCell=e.target;
+    for(let i=0;i<allCells.length;i++){
+        if(allCells[i].classList.contains("borderCell")){
+            allCells[i].classList.remove("borderCell");
+        }
+    }
+    currentCell.classList.add("borderCell");
+    
     rowId=Number(currentCell.getAttribute("rowid"));
     colId=Number(currentCell.getAttribute("colid"));
     let address=String.fromCharCode(65+colId)+(rowId+1)+"";
@@ -41,6 +49,9 @@ for(let i=0;i<allCells.length;i++){
         let currentElement=e.target;
         console.group(currentElement);
         lastSelectedCell=currentElement;
+       
+        
+        
     
         let value=currentElement.textContent;
         let cellObject=db[rowId][colId];

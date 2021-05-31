@@ -43,11 +43,14 @@ function initUI(){
         allCells[i].textContent="";
         allCells[i].style.backgroundColor="white";
         allCells[i].style.color="black";
+        if(allCells[i].classList.contains("borderCell")){
+            allCells[i].classList.remove("borderCell");
+        }   
     }
 }
 function setUI(){
     for(let i=0;i<allCells.length;i++){
-        console.log("cecll");
+       
         console.log(allCells[i]);
           let rowId=allCells[i].getAttribute("rowid");
           let colId=allCells[i].getAttribute("colid");
