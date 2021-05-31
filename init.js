@@ -19,6 +19,7 @@ for(let i=0;i<100;i++){
     cellsContentHtml+=`<div class="left-col-cell" cell-id = "${i}">${i+1}</div>`;
 }
 cellsContentHtml+=`</div>`;
+
 //All cells
 cellsContentHtml+=`<div class="cells">`;
 for(let i=0;i<100;i++){
@@ -47,7 +48,9 @@ function initDB(){
                 children:[],
                 parents:[],
                 fontStyle:{bold:false,italic:false,underline:false},
-                testAlign:"left" //default
+                testAlign:"left", //default
+                fontcolor:"black",
+                cellcolor:"white"
             }
             row.push(cellObject);
         }

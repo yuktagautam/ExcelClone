@@ -7,6 +7,7 @@ let addressInput=document.querySelector("#address");
 let formulaInput=document.querySelector("#formula");
 let allCells=document.querySelectorAll(".cell");
 
+
 cellsContent.addEventListener("scroll",function(e){
     let top=e.target.scrollTop;
     let left=e.target.scrollLeft;
@@ -28,7 +29,7 @@ cells.addEventListener("click",function(e){
     let address=String.fromCharCode(65+colId)+(rowId+1)+"";
     let cellObject=db[rowId][colId];//finding object
     addressInput.value=address;//D8 //name of cell clicked
-    formulaInput.value=cellObject.formula;//if any cell have relation on it than formulainput will display that formula
+    formulaInput.value=cellObject.formula;//if any cell have relation on it than formula input will display that formula
     setMenu(cellObject);
 })
 //updating lastSelectedCell and assigned value to clicked cell
@@ -36,10 +37,18 @@ cells.addEventListener("click",function(e){
 for(let i=0;i<allCells.length;i++){
 
     allCells[i].addEventListener("blur",function(e){
+        console.log("focus hatata ye chala");
         let currentElement=e.target;
+        console.group(currentElement);
         lastSelectedCell=currentElement;
+    
         let value=currentElement.textContent;
         let cellObject=db[rowId][colId];
+        console.log(lastSelectedCell);
+        
+         value=lastSelectedCell.innerHTML;
+       
+
         //true if A1->A1 value has been Changed
         if(value!=cellObject.value){//is user change the prev cell value or write first time in that cell
             //Formula to Value
@@ -64,36 +73,44 @@ for(let i=0;i<allCells.length;i++){
 }
 
 //setting formula solvedValue and formulas in UI AND DB
-formulaInput.addEventListener("blur",function(e){
+formulaInput.addEventListener("keydown",function(e){
     let formula=formulaInput.value;
-    if(formula && lastSelectedCell){//check if formula is not null and if no cell is selected
+    if(e.key=="Enter" && formula && lastSelectedCell){//check if formula is not null and if no cell is selected
            
         let cellObject=db[rowId][colId];//it will help to setchildren ,As B1 depend upon A1,A2.
-       //formula not null but exsiting formula has been changed
+       //formula not null but existing formula has been changed
        //formula To formula
        //orignal formula (A1+A2)
        //now   formula (A1 * 10)
        //B1 must delete A2 from its parents 
        //A2 must delete B1 from its child
-         if(cellObject.formula!=formula){
+
+       let solvedValue=solveFormula(formula,cellObject);
+       if(solvedValue){
+        if(cellObject.formula!=formula){
             if(cellObject.formula){
                 deleteFormula(cellObject);
             }
         }
         
-        //A1 will hae B1 as children simlarly A2 too have B1 as children      
-        let solvedValue=solveFormula(formula,cellObject);
-                  //set UI
-                  lastSelectedCell.textContent=solvedValue;
-                  //set DB
-                  
-                  cellObject.value=solvedValue;
-                  cellObject.formula=formula;
-                   //value to formula----
-                  //Suppose C1 is dependent on A1 + A2 +B1
-                  //now we change B1 formula to A1* A2 
-                  //as B1 value will change will further change C1 value 
-                  updateChildren(cellObject);
+        //A1 will have B1 as children simlarly A2 too have B1 as children      
+      
+        
+             //set UI
+             lastSelectedCell.textContent=solvedValue;
+             //set DB
+             
+             cellObject.value=solvedValue;
+             cellObject.formula=formula;
+              //value to formula----
+             //Suppose C1 is dependent on A1 + A2 +B1
+             //now we change B1 formula to A1* A2 
+             //as B1 value will change will further change C1 value 
+             updateChildren(cellObject);
+        
+
+       }
+                          
     }
 })
 

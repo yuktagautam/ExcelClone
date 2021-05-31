@@ -1,37 +1,67 @@
+function isSafe(parentObj,selfCellObjectName){
+    return cycle(parentObj,selfCellObjectName);
+}
+function cycle(parentObj,selfCellObjectName){
+    console.log("cycle ko call lag ");
+    console.log("parent "+parentObj+" "+" self "+ selfCellObjectName);
+    if(parentObj==selfCellObjectName){
+        return false;
+    }
+    let {rowId,colId}=getRowIdColIdFromAddress(parentObj);
+    // console.log(rowId,colId);
+    let cellObj=db[rowId][colId];
+    let p=cellObj.parents;
+    
+   
+    for(let i=0;i<p.length;i++){
+      if(cycle(p[i],selfCellObjectName)==false)return false;
+    }
+    return true;
+}
 function solveFormula(formula,selfCellObject){
  //"A1+A2"=>(10+20)
  let formulaComps=formula.split(" ");
-
+ let farray=[];
  
  //["(","A1","+","A2",")"]
  for(let i=0;i<formulaComps.length;i++){
      
      let fComp=formulaComps[i];
-     console.log(fComp);
+    //  console.log(fComp);
      if(fComp[0]>="A" && fComp[0]<="Z"){
-    let {rowId,colId}=getRowIdColIdFromAddress(fComp);//got A1 rowid and colid ,similary for next iteration  A2 rowid,colid
-    let cellObject=db[rowId][colId];     
-    if(selfCellObject){
-             cellObject.children.push(selfCellObject.name);
-             selfCellObject.parents.push(fComp);
+     let {rowId,colId}=getRowIdColIdFromAddress(fComp);//got A1 rowid and colid ,similary for next iteration  A2 rowid,colid
+     let cellObject=db[rowId][colId];     
+     if(selfCellObject){
+        let res=isSafe(fComp,selfCellObject.name);
+             if(res){
+                cellObject.children.push(selfCellObject.name);
+                selfCellObject.parents.push(fComp);
+             }else{
+                 alert("Invalid token! Cycle Detected!");
+                 return null;
+             }
+            
+     }    
+        farray.push(cellObject.value);
      }
-         
-         let value=cellObject.value;
-         console.log(". "+value);
-         //A1+A2-->10+A2 -->10+20
-         formula=formula.replace(fComp,value);
+     else{
+         farray.push(fComp);
      }
+    //  console.log(farray);
  }
 
- let value=eval(formula);//10+20-->30
+ let value=infixEvaluation(farray);
+//  console.log("value = "+value );
  return value;
 }
 function getRowIdColIdFromAddress(address){
     //C1
     //C =>colId => 2
     //1 => rowId => 0
+    
     let colId=address.charCodeAt(0)-65;
     let rowId=Number(address.substring(1))-1;
+    console.log(rowId,colId);
     return {rowId,colId};
 }
 function updateChildren(cellObject){
@@ -45,11 +75,14 @@ function updateChildren(cellObject){
         let {rowId,colId}=getRowIdColIdFromAddress(childName);
         let childrenCellObject=db[rowId][colId];
         let newValue=solveFormula(childrenCellObject.formula);
-        //B1 => DB update
+        if(newValue){
+           //B1 => DB update
         childrenCellObject.value=newValue;
         //B1  =>UI update
         document.querySelector(`div[rowid="${rowId}"][colid="${colId}"]`).textContent=newValue;
         updateChildren(childrenCellObject);//for children of children //recursive  
+        }
+       
     }
 }
 function deleteFormula(cellObject){

@@ -4,6 +4,8 @@ let center = document.querySelector(".center");
 let right = document.querySelector(".right");
 let underline=document.querySelector(".underline");
 let italic=document.querySelector(".italic");
+let cellcolor=document.querySelector(".bgcolorDiv");
+let textcolor=document.querySelector(".textcolorDiv");
 //adding event Listner to bold,underline,italic,left,center,right
 
 //bold
@@ -81,12 +83,36 @@ right.addEventListener("click",function(e){
     cellObject.textAlign="right";
     setMenu(cellObject);
 })
+//cell bg color
+cellcolor.addEventListener("click",function(e){
+    let cellObject=db[rowId][colId];
 
+    let color=e.target.value;
+    //update ui
+    console.log(color);
+    lastSelectedCell.style.backgroundColor=color;
+    //set db
+    cellObject.cellcolor=color;
+
+
+
+});
+//text color
+textcolor.addEventListener("click",function(e){
+    let cellObject=db[rowId][colId];
+    let color=e.target.value;
+    console.log(color);
+    //update ui
+    lastSelectedCell.style.color=color;
+
+    //set db
+    cellObject.fontcolor=color;
+
+})
 
 function initMenu(){
     bold.classList.remove("active-menu");
-    underline.classList.remove("active-menu");
-    italic.classList.remove("active-menu");
+     italic.classList.remove("active-menu");
     left.classList.remove("active-menu");
     center.classList.remove("active-menu");
     right.classList.remove("active-menu");

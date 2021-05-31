@@ -3,30 +3,25 @@
   margin: 0px;
   padding: 0px;
 }
-
 .calculation {
   background: beige;
   height: 25px;
   display: flex;
   border-bottom: 1px solid lightgrey;
 }
-
 .cells-content {
   height: calc(100vh - 110px);
   overflow: auto;
   position: relative;
 }
-
 .sheets {
   font-family: Lato, sans-serif;
   display: flex;
   height: 25px;
 }
-
 .row {
   display: flex;
 }
-
 .left-col {
   position: absolute;
   top: 20px;
@@ -150,11 +145,39 @@
   align-items: center;
   border-radius: 5px;
 }
-
 .menu-options div div:hover {
   background: lightgray;
   opacity: 0.7;
 }
 .active-menu {
   background-color: lightgray;
+}
+
+.font-family {
+  width: 180px !important;
+}
+
+#font-family {
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 13px;
+  background: #ecedec;
+}
+
+#bg-color-cell {
+  opacity: 0;
+  position: absolute;
+}
+#textcolor {
+  opacity: 0;
+  position: absolute;
+}
+#font-size {
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 13px;
+  background: #ecedec;
 }

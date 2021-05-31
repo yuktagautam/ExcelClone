@@ -41,12 +41,18 @@ function handleSheetSwitch(e){
 function initUI(){
     for(let i=0;i<allCells.length;i++){
         allCells[i].textContent="";
+        allCells[i].style.backgroundColor="white";
+        allCells[i].style.color="black";
     }
 }
 function setUI(){
     for(let i=0;i<allCells.length;i++){
+        console.log("cecll");
+        console.log(allCells[i]);
           let rowId=allCells[i].getAttribute("rowid");
           let colId=allCells[i].getAttribute("colid");
           allCells[i].textContent=db[rowId][colId].value;
+          allCells[i].style.backgroundColor=db[rowId][colId].cellcolor;
+          allCells[i].style.fontStyle=db[rowId][colId].fontcolor;
     }
 }
